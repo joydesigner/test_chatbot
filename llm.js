@@ -6,6 +6,9 @@ dotenv.config();
 const API_KEY = process.env.API_KEY;
 const API_URL = process.env.API_URL;
 
+const MODEL = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B';
+const SYSTEM_PROMPT = 'You are a helpful assistant.';
+
 class LLMService {
     constructor() {
         this.apiKey = API_KEY;
@@ -17,7 +20,7 @@ class LLMService {
             const response = await axios.post(
                 this.apiUrl,
                 {
-                    model: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B',
+                    model: MODEL,
                     messages: [
                         { role: 'system', content: 'You are a helpful assistant.' },
                         { role: 'user', content: message }

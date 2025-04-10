@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 3000;
 // serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 const server = http.createServer(app);
 const io = new Server(server);
 
