@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
 const llmService = require('./llm');
+const { generateSessionId, storeSessionData, cleanupOldSessions } = require('./utils/sessionUtils');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,19 +18,31 @@ app.get('/', (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server);
 
+// Clean up old sessions every hour
+setInterval(() => {
+    cleanupOldSessions(24); // Clean up sessions older than 24 hours
+}, 60 * 60 * 1000);
+
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    // send welcome message
-    // socket.emit('chat response', 'Hello! I am the AI assistant. How can I help you today?');
+    // Generate a unique session ID
+    const sessionId = generateSessionId();
+    console.log(`New session ID: ${sessionId}`);
 
     socket.on('chat message', async (message) => {
         try {
+            // Store user message
+            storeSessionData(sessionId, { type: 'user', content: message });
+
             // emit 'thinking' message
             socket.emit('thinking', true);
 
             const response = await llmService.getResponse(message);
             console.log('Assistant Response:', response);
+
+            // Store assistant response
+            storeSessionData(sessionId, { type: 'assistant', content: response });
 
             // emit 'thinking' message as false
             socket.emit('thinking', false);
@@ -39,6 +52,7 @@ io.on('connection', (socket) => {
         } catch (error) {
             console.error('Error:', error.message);
             socket.emit('chat response', 'Sorry, something went wrong.');
+            socket.emit('thinking', false);
         }
     });
 
