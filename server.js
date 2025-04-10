@@ -21,11 +21,12 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // send welcome message
-    socket.emit('chat response', 'Welcome to the chat!');
+    socket.emit('chat response', 'Hello! I am the AI assistant. How can I help you today?');
 
     socket.on('chat message', async (message) => {
         try {
             const response = await llmService.getResponse(message);
+            console.log('Assistant Response:', response);
             socket.emit('chat response', response);
         } catch (error) {
             console.error('Error:', error.message);

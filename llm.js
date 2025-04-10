@@ -13,18 +13,21 @@ class LLMService {
     constructor() {
         this.apiKey = API_KEY;
         this.apiUrl = API_URL;
+        this.conversationHistory = [
+            { role: 'system', content: SYSTEM_PROMPT }
+        ];
     }
 
     async getResponse(message) {
         try {
+            // Add user message to conversation history
+            this.conversationHistory.push({ role: 'user', content: message });
+
             const response = await axios.post(
                 this.apiUrl,
                 {
                     model: MODEL,
-                    messages: [
-                        { role: 'system', content: SYSTEM_PROMPT },
-                        { role: 'user', content: message }
-                    ],
+                    messages: this.conversationHistory,
                     max_tokens: 200,
                     temperature: 0.7
                 },
@@ -36,11 +39,24 @@ class LLMService {
                 }
             );
 
-            return response.data.choices[0].message.content;
+            const assistantResponse = response.data.choices[0].message.content;
+            console.log('Assistant Response:', assistantResponse);
+
+            // Add assistant response to conversation history
+            this.conversationHistory.push({ role: 'assistant', content: assistantResponse });
+
+            return assistantResponse;
         } catch (error) {
             console.error('Error querying AI:', error.response ? error.response.data : error.message);
             throw new Error('Failed to get response from LLM');
         }
+    }
+
+    // Method to reset conversation history
+    resetConversation() {
+        this.conversationHistory = [
+            { role: 'system', content: SYSTEM_PROMPT }
+        ];
     }
 }
 
