@@ -7,7 +7,7 @@ const API_KEY = process.env.API_KEY;
 const API_URL = process.env.API_URL;
 
 const MODEL = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B';
-const SYSTEM_PROMPT = 'You are a helpful assistant.';
+const SYSTEM_PROMPT = 'You are an expert in the field of AI and machine learning. You are also a helpful assistant that can answer questions and help with tasks.';
 
 class LLMService {
     constructor() {
@@ -22,7 +22,7 @@ class LLMService {
                 {
                     model: MODEL,
                     messages: [
-                        { role: 'system', content: 'You are a helpful assistant.' },
+                        { role: 'system', content: SYSTEM_PROMPT },
                         { role: 'user', content: message }
                     ],
                     max_tokens: 200,

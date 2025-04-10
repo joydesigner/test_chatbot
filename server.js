@@ -20,6 +20,9 @@ const io = new Server(server);
 io.on('connection', (socket) => {
     console.log('A user connected');
 
+    // send welcome message
+    socket.emit('chat response', 'Welcome to the chat!');
+
     socket.on('chat message', async (message) => {
         try {
             const response = await llmService.getResponse(message);
