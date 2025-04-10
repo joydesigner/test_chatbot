@@ -28,34 +28,25 @@
   }
 
   .message-input {
-    @apply flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+    @apply p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
   }
 
   .send-button {
     @apply px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  .typing-indicator {
-    @apply flex items-center space-x-2 p-2 bg-gray-100 rounded-lg max-w-[80%] mb-4;
+  .ai-icon {
+    @apply animate-pulse;
   }
 
-  .typing-dot {
-    @apply w-2 h-2 bg-gray-400 rounded-full;
-    animation: typing 1s infinite;
-  }
-
-  .typing-dot:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .typing-dot:nth-child(3) {
-    animation-delay: 0.4s;
+  .ai-icon svg {
+    animation: float 2s ease-in-out infinite;
   }
 }
 
-@keyframes typing {
+@keyframes float {
   0% {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
 
   50% {
@@ -63,6 +54,6 @@
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
 }

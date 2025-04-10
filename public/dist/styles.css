@@ -626,7 +626,6 @@ video {
 }
 
 .message-input {
-  flex: 1 1 0%;
   border-radius: 0.5rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -676,45 +675,26 @@ video {
   opacity: 0.5;
 }
 
-.typing-indicator {
-  margin-bottom: 1rem;
-  display: flex;
-  max-width: 80%;
-  align-items: center;
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
 }
 
-.typing-indicator > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+.ai-icon {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.typing-indicator {
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
-  padding: 0.5rem;
-}
-
-.typing-dot {
-  height: 0.5rem;
-  width: 0.5rem;
-  border-radius: 9999px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));
-  animation: typing 1s infinite;
-}
-
-.typing-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing-dot:nth-child(3) {
-  animation-delay: 0.4s;
+.ai-icon svg {
+  animation: float 2s ease-in-out infinite;
 }
 
 .mb-4 {
   margin-bottom: 1rem;
+}
+
+.block {
+  display: block;
 }
 
 .flex {
@@ -725,8 +705,32 @@ video {
   height: 1.25rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .w-5 {
   width: 1.25rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -762,6 +766,11 @@ video {
   font-weight: 700;
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
@@ -778,9 +787,9 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-@keyframes typing {
+@keyframes float {
   0% {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
 
   50% {
@@ -788,6 +797,6 @@ video {
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
 }

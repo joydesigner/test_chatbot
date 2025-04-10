@@ -17,22 +17,25 @@
     </header>
 
     <div class="messages-container">
-      <div class="typing-indicator" id="typingIndicator" style="display: none;">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
       <ul id="messages" class="space-y-4"></ul>
     </div>
 
     <div class="input-container">
-      <input type="text" id="userInput" class="message-input" placeholder="Type your message..." />
-      <button onclick="sendMessage()" id="sendButton" class="send-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path
-            d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-        </svg>
-      </button>
+      <div class="flex items-center gap-2 w-full">
+        <div id="aiIcon" class="ai-icon" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <input type="text" id="userInput" class="message-input flex-1" placeholder="Type your message..." />
+        <button onclick="sendMessage()" id="sendButton" class="send-button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -41,14 +44,14 @@
     const messages = document.getElementById('messages');
     const userInput = document.getElementById('userInput');
     const sendButton = document.getElementById('sendButton');
-    const typingIndicator = document.getElementById('typingIndicator');
+    const aiIcon = document.getElementById('aiIcon');
 
     socket.on('connect', () => {
       console.log('Connected to server');
     });
 
     socket.on('thinking', (isThinking) => {
-      typingIndicator.style.display = isThinking ? 'flex' : 'none';
+      aiIcon.style.display = isThinking ? 'block' : 'none';
     });
 
     socket.on('chat response', (response) => {
