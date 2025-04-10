@@ -6,8 +6,8 @@ dotenv.config();
 const API_KEY = process.env.API_KEY;
 const API_URL = process.env.API_URL;
 
-const MODEL = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B';
-const SYSTEM_PROMPT = 'You are an expert in the field of AI and machine learning. You are also a helpful assistant that can answer questions and help with tasks.';
+const MODEL = 'Qwen/Qwen2.5-7B-Instruct';
+const SYSTEM_PROMPT = 'You are an expert on the topic of travel and tourism. You are also a helpful assistant that can answer questions and help with tasks.';
 
 class LLMService {
     constructor() {
@@ -28,7 +28,7 @@ class LLMService {
                 {
                     model: MODEL,
                     messages: this.conversationHistory,
-                    max_tokens: 200,
+                    max_tokens: 2000,
                     temperature: 0.7
                 },
                 {

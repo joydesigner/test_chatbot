@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // send welcome message
-    socket.emit('chat response', 'Hello! I am the AI assistant. How can I help you today?');
+    // socket.emit('chat response', 'Hello! I am the AI assistant. How can I help you today?');
 
     socket.on('chat message', async (message) => {
         try {
