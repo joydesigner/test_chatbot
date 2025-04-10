@@ -25,13 +25,25 @@ io.on('connection', (socket) => {
 
     socket.on('chat message', async (message) => {
         try {
+            // emit 'thinking' message
+            socket.emit('thinking', true);
+
             const response = await llmService.getResponse(message);
             console.log('Assistant Response:', response);
+
+            // emit 'thinking' message as false
+            socket.emit('thinking', false);
+
+            // emit 'chat response' message
             socket.emit('chat response', response);
         } catch (error) {
             console.error('Error:', error.message);
             socket.emit('chat response', 'Sorry, something went wrong.');
         }
+    });
+
+    socket.on('reset conversation', () => {
+        llmService.resetConversation();
     });
 
     socket.on('disconnect', () => {
