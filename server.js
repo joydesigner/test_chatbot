@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         try {
             // Store user message
             storeSessionData(sessionId, { type: 'user', content: message });
-
+            console.log(`User message stored: ${message}`);
             // emit 'thinking' message
             socket.emit('thinking', true);
 
